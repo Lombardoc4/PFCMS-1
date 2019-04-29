@@ -2,7 +2,7 @@ import React from "react";
 import io from "socket.io-client";
 import axios from 'axios';
 
-const Server = "http://192.168.1.5:4000/";
+const Server = "http://localhost:4000/";
 
 class Chat extends React.Component{
 

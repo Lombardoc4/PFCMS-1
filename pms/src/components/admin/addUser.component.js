@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 
 
-const Server = "http://192.168.1.5:4000/";
+const Server = "http://localhost:4000/";
 
 export default class Admin extends Component {
   constructor(props) {

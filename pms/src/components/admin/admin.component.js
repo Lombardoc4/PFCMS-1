@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 import CreateUser from './addUser.component';
 import AllUsers from './allUsers.component';
 
-const Server = "http://192.168.1.5:4000/";
+const Server = "http://localhost:4000/";
 
 export default class PlantList extends Component {
   constructor(props) {

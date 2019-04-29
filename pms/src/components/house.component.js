@@ -6,7 +6,7 @@ import Admin from "./admin/admin.component";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-import logo from "./../../logo.JPG";
+import logo from "./../logo.JPG";
 
 class House extends Component {
 

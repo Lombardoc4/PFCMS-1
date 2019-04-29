@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+// Get request to send info to chat!
+// Call data from db?
+// maintain USERNAME
+// make message be the request
+
 class Request extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +25,6 @@ class Request extends Component {
     }
   }
 
-  // Request <<---- Start Here
-  // post request to server as well as to chat
-  // request is a form like login, work from that base
-  // make sure requests go to the DB
-  // then set up chat?
   onChangeMedic(e) {
       this.setState({
         medkits: '' + e.target.value
@@ -66,7 +66,7 @@ class Request extends Component {
       jet: this.state.jet
     };
 
-    var serverLocation = "http://192.168.1.5:4000/requests";
+    var serverLocation = "http://localhost:4000/requests";
       axios.post(serverLocation, newRequest)
         .then(res => console.log(res.data));
 

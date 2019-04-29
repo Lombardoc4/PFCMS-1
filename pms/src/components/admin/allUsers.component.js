@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from 'axios';
 
-const Server = "http://192.168.1.5:4000/";
+const Server = "http://localhost:4000/";
 
 var User = props => (
   <tr>

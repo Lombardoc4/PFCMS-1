@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Map from "./components/home/map.component";
-import House from "./components/home/house.component";
+import Map from "./components/map.component";
+import House from "./components/house.component";
 
 
 import "./App.css"
@@ -73,7 +73,7 @@ class App extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    var serverLocation = "http://192.168.1.5:4000/users/" + this.state.username;
+    var serverLocation = "http://localhost:4000/users/" + this.state.username;
       axios.get(serverLocation)
       .then(res => {
         // check password
