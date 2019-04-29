@@ -32,13 +32,15 @@ class Outline extends Component {
       <div>
         <Container>
           <Row>
-            <Col xs='4'>
-              <Request/>
-            </Col>
-            <Col xs='8'>
+            <Col>
               <Chat user={this.props.user}/>
             </Col>
           </Row>
+          <br/>
+          <Col xs={{span: 6, offset: 3}}>
+            <Request/>
+            <br/>
+          </Col>
         </Container>
       </div>
     );

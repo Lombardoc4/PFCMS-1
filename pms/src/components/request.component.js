@@ -14,6 +14,7 @@ class Request extends Component {
     this.onChangeHeli = this.onChangeHeli.bind(this);
     this.onChangeVessel = this.onChangeVessel.bind(this);
     this.onChangeJet = this.onChangeJet.bind(this);
+    this.onChangeLang = this.onChangeLang.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -21,7 +22,8 @@ class Request extends Component {
       food: '',
       heli: false,
       vessel: false,
-      jet: false
+      jet: false,
+      language: ''
     }
   }
 
@@ -52,6 +54,12 @@ class Request extends Component {
   onChangeJet(e) {
     this.setState({
       jet: e.target.checked
+    });
+  }
+
+  onChangeLang(e) {
+    this.setState({
+      jet: e.target.value
     });
   }
 
@@ -121,6 +129,15 @@ class Request extends Component {
             <b>Fighter Jet</b>
           </label>
           </ul>
+          <label>Negotiator (Language)</label>
+          <input list="languages" onChange={this.onChangeLang} style ={{width: "100px"}} />
+          <datalist id="languages">
+    <option value="English">English</option>
+    <option value="French">French</option>
+    <option value="Spanish">Spanish</option>
+    <option value="Italian">Italian</option>
+          </datalist>
+          <br/>
           {this.props.children}
           <input type="submit" value="Make Request"/>
       </form>

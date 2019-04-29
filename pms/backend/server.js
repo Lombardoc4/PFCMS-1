@@ -46,7 +46,8 @@ chatRoutes.get('/', function(req, res) {
             res.json(chats);
         }
     });
-});
+  }
+);
 
 io.on('connection', (socket) => {
     // get all messages from db
@@ -95,19 +96,26 @@ userRoutes.get('/:username', function(req, res) {
     });
 });
 
-
-
 app.use('/users', userRoutes);
 
 let Request = require('./models/request.model');
 var requestRoutes = express.Router();
 
+requestRoutes.get('/', function(req, res) {
+  Request.find(function(err, requests) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.json(requests);
+      }
+  });
+});
 
 requestRoutes.post('/', function(req, res) {
     let request = new Request(req.body);
     request.save()
       .then(request => {
-        res.status(200).send('request has been submitted');
+        res.status(200).send('Request has been submitted');
       })
       .catch(err => {
         res.status(400).send('Request failed');

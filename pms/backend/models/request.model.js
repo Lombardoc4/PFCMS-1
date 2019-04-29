@@ -17,6 +17,9 @@ let Requests = new Schema({
   },
   jet: {
     type: Boolean
+  },
+  negotiator: {
+    type: String
   }
 });
 

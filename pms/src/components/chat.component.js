@@ -4,16 +4,21 @@ import axios from 'axios';
 
 const Server = "http://localhost:4000/";
 
+
+
 class Chat extends React.Component{
 
   // IMPORT USERNAME VALUE AND MODIFY VISUALLY
     constructor(props){
         super(props);
-
+        this.messageInit = this.messageInit.bind(this);
+        this.initLoad = this.initLoad.bind(this);
         this.state = {
             username: this.props.user,
             message: '',
-            messages: []
+            messages: [],
+            requests:[],
+            initial: true
         };
 
         console.log(this.props.user);
@@ -22,7 +27,7 @@ class Chat extends React.Component{
         this.socket.on('RECEIVE_MESSAGE', function(data){
 
             addMessage(data);
-            var serverLocation = Server + 'chat/';
+            // var serverLocation = Server + 'chat/';
             // axios.get(serverLocation)
             //   .then(res => {
             //     this.setState({ messages: res.data });
@@ -57,7 +62,7 @@ class Chat extends React.Component{
               author: this.state.username,
               message: this.state.message
             };
-            var serverLocation = "http://192.168.1.5:4000/chat";
+            var serverLocation = "http://localhost:4000/chat";
               axios.post(serverLocation, newChat)
                 .then(
                   axios.get(serverLocation)
@@ -74,10 +79,62 @@ class Chat extends React.Component{
     }
 
     componentDidMount() {
-      var serverLocation = Server + 'chat/';
+      this.timerID = setInterval(
+        () => this.initLoad(),
+        30000
+      );
+    }
+
+    componentWillUnmount() {
+      clearInterval(this.timerID);
+    }
+
+    requestList() {
+      return this.state.requests.map(function(request) {
+        // console.log({request.medkits})
+        return (
+          <div style={{color: "red"}} key={request._id}>
+          {request.medkits != 0 ? <p>{request.medkits} medical kits,</p>  : null}
+          {request.food != 0 ? <p style={{display: "inline"}}
+    > {request.food} servings of food,</p>  : null}
+          {request.heli ? <p style={{display: "inline"}}> Helicopter support,</p>  : null}
+          {request.vessels ? <p style={{display: "inline"}}> Vessel support,</p>  : null}
+          {request.jet != 0 ? <p style={{display: "inline"}}> Jet support</p>  : null}
+          {request.negotiator != null ? <p style={{display: "inline"}}>Negotiator that speaks {request.negotiator}</p>  : null}
+
+
+        </div>
+      );
+    })
+    }
+
+
+
+    messageInit() {
+      if (this.state.initial){
+
+          console.log('yay')
+        this.initLoad();
+        this.setState({
+          initial: false
+        });
+      }
+    }
+
+    initLoad() {
+      var serverLocation = Server + 'chat/'
       axios.get(serverLocation)
         .then(res => {
           this.setState({ messages: res.data });
+        })
+        .catch(function (error){
+          console.log(error);
+        });
+
+      serverLocation = Server + 'requests/'
+      axios.get(serverLocation)
+        .then(res => {
+          this.setState({ requests: res.data });
         })
         .catch(function (error){
           console.log(error);
@@ -90,15 +147,24 @@ class Chat extends React.Component{
           <div className="row">
             <div className="col">
               <div className="card">
-                <div className="card-body">
+                <div className="card-body" >
                     <div className="card-title">Global Chat</div>
                     <hr/>
-                    <div className="messages">
+                    {this.messageInit()}
+                    <div className="messages" style={{overflow: "auto", height: "200px"}}>
+                    <div className="row">
+                      <div className="col">
                       {this.state.messages.map(message => {
                         return (
-                          <div>{message.author}: {message.message}</div>
+                          <div key={message._id}>{message.author}: {message.message}</div>
                           )
                       })}
+                    </div>
+
+                    <div className="col">
+                    <p style={{color: "red"}}>Requests</p>
+                    {this.requestList()}
+                    </div>
                     </div>
 
                     </div>
@@ -108,6 +174,7 @@ class Chat extends React.Component{
                     <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
                                 <br/>
                                 <button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
+                            </div>
                             </div>
                         </div>
                     </div>

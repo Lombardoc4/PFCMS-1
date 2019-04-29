@@ -56,7 +56,7 @@ class App extends Component {
                       />
                     <br/>
                   <label ><b>Password: </b></label>
-            <input  type="text"
+            <input  type="password"
                         onChange={this.onChangePass}
                         required
                         />
