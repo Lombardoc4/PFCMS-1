@@ -148,12 +148,20 @@ class Chat extends React.Component{
             <div className="col">
               <div className="card">
                 <div className="card-body" >
-                    <div className="card-title">Global Chat</div>
+                    <div className="row">
+                    <div className='col'>
+                      <div className="card-title">Global Chat</div>
+                    </div>
+                    <div className='col'>
+                      <div className="card-title:" style={{color: "red"}}>Requests</div>
+                    </div>
+                    </div>
+
                     <hr/>
                     {this.messageInit()}
-                    <div className="messages" style={{overflow: "auto", height: "200px"}}>
+                    <div className="messages" >
                     <div className="row">
-                      <div className="col">
+                      <div className="col" style={{overflow: "auto", height: "200px"}}>
                       {this.state.messages.map(message => {
                         return (
                           <div key={message._id}>{message.author}: {message.message}</div>
@@ -161,8 +169,8 @@ class Chat extends React.Component{
                       })}
                     </div>
 
-                    <div className="col">
-                    <p style={{color: "red"}}>Requests</p>
+                    <div className="col" style={{overflow: "auto", height: "200px"}}>
+
                     {this.requestList()}
                     </div>
                     </div>

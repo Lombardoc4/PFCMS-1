@@ -66,13 +66,17 @@ class Request extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+
     var newRequest = {
       medkits: this.state.medkits,
       food: this.state.food,
       heli: this.state.heli,
       vessel: this.state.vessel,
-      jet: this.state.jet
+      jet: this.state.jet,
+      negotiator: this.state.negotiator
     };
+
+
 
     var serverLocation = "http://localhost:4000/requests";
       axios.post(serverLocation, newRequest)
@@ -83,7 +87,8 @@ class Request extends Component {
         food: '0',
         heli: false,
         vessel: false,
-        jet: false
+        jet: false,
+        negotiator: ''
       });
     }
 
@@ -103,7 +108,7 @@ class Request extends Component {
           <label >
           <input  type="number"
                   style={{width: "50px", borderStyle: "dotted"}}
-                  onChange={this.onChangeMedic}
+                  onChange={this.onChangeFood}
                   />
             <b>Food & Water</b>
           </label>
