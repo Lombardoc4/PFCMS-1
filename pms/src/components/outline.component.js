@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Map from "./map.component";
 import Chat from "./chat.component";
 import Request from "./request.component";
+import Ai from './ai.component';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -32,9 +32,12 @@ class Outline extends Component {
       <div>
         <Container>
           <Row>
-            <Col>
+            <div className="col-4">
+              <Ai/>
+            </div>
+            <div className="col-8">
               <Chat user={this.props.user}/>
-            </Col>
+            </div>
           </Row>
           <br/>
           <Col xs={{span: 6, offset: 3}}>

@@ -23,6 +23,34 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+let Ai = require('./models/ai.model');
+var aiRoutes = express.Router();
+
+aiRoutes.get('/', function(req, res) {
+    Ai.find(function(err, events) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(events);
+        }
+    });
+  }
+);
+
+aiRoutes.post('/', function(req, res) {
+  let data = new Ai(req.body);
+  data.save()
+  .then(data => {
+    res.status(200).send('data sent');
+  })
+  .catch(err => {
+    res.status(400).send('data failed');
+  });
+});
+
+app.use('/ai', aiRoutes);
+
+
 let Chat = require('./models/chat.model');
 var chatRoutes = express.Router();
 

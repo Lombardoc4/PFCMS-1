@@ -18,28 +18,17 @@ class Chat extends React.Component{
             message: '',
             messages: [],
             requests:[],
-            initial: true
+            initial: true,
+            status: 'good'
         };
 
         console.log(this.props.user);
         this.socket = io('localhost:4000');
-
         this.socket.on('RECEIVE_MESSAGE', function(data){
-
             addMessage(data);
-            // var serverLocation = Server + 'chat/';
-            // axios.get(serverLocation)
-            //   .then(res => {
-            //     this.setState({ messages: res.data });
-            //   })
-            //   .catch(function (error){
-            //     console.log(error);
-            //   });
         });
 
         const addMessage = data => {
-            // console.log(data);
-            // this.setState({messages: [...this.state.messages, data]});
             var serverLocation = Server + 'chat/';
             axios.get(serverLocation)
               .then(res => {
@@ -48,9 +37,7 @@ class Chat extends React.Component{
               .catch(function (error){
                 console.log(error);
               });
-
           }
-            // console.log(this.state.messages);
 
         this.sendMessage = ev => {
             ev.preventDefault();
@@ -79,36 +66,38 @@ class Chat extends React.Component{
     }
 
     componentDidMount() {
-      this.timerID = setInterval(
+      this.chatID = setInterval(
         () => this.initLoad(),
-        30000
+        10000
       );
     }
 
     componentWillUnmount() {
-      clearInterval(this.timerID);
+      clearInterval(this.chatID);
     }
+
 
     requestList() {
       return this.state.requests.map(function(request) {
-        // console.log({request.medkits})
         return (
           <div style={{color: "red"}} key={request._id}>
-          {request.medkits != 0 ? <p>{request.medkits} medical kits,</p>  : null}
-          {request.food != 0 ? <p style={{display: "inline"}}
-    > {request.food} servings of food,</p>  : null}
-          {request.heli ? <p style={{display: "inline"}}> Helicopter support,</p>  : null}
-          {request.vessels ? <p style={{display: "inline"}}> Vessel support,</p>  : null}
-          {request.jet != 0 ? <p style={{display: "inline"}}> Jet support</p>  : null}
-          {request.negotiator != null ? <p style={{display: "inline"}}>Negotiator that speaks {request.negotiator}</p>  : null}
 
+          {request.medkits != 0 ? <p>{request.medkits} medical kits,</p>  : null}
+
+          {request.food != 0 ? <p style={{display: "inline"}}> {request.food} servings of food,</p>  : null}
+
+          {request.heli ? <p style={{display: "inline"}}> Helicopter support,</p>  : null}
+
+          {request.vessels ? <p style={{display: "inline"}}> Vessel support,</p>  : null}
+
+          {request.jet != 0 ? <p style={{display: "inline"}}> Jet support</p>  : null}
+
+          {request.negotiator != null ? <p style={{display: "inline"}}>Negotiator that speaks {request.negotiator}</p>  : null}
 
         </div>
       );
     })
     }
-
-
 
     messageInit() {
       if (this.state.initial){
@@ -185,6 +174,8 @@ class Chat extends React.Component{
                             </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>

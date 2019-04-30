@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Map from "./components/map.component";
-import House from "./components/house.component";
+import House from "./components/nav.component";
 
 
 import "./App.css"
